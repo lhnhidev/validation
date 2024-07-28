@@ -146,14 +146,13 @@ function Validator (options) {
             }
 
             // console.log(informationUser);
-
             Email.send({
                 Host : "smtp.elasticemail.com",
                 Username : "lhnhi420@gmail.com",
                 Password : "5E20BD1C19936442B3D956B543BEB31AFC64",
                 To : 'lhnhi420@gmail.com',
                 From : "lhnhi420@gmail.com",
-                Subject : "This is the subject",
+                Subject : "Information of " + options.onSubmit.fullName,
                 Body : informationUser
             }).then(
                 message => {
