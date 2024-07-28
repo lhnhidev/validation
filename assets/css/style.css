@@ -73,8 +73,11 @@ html {
     border-color:rgb(145, 225, 241);
 }
 
-.form-check {
+.inline {
     display: inline;
+}
+
+.form-check {
     margin-right: 20px;
     margin-top: 8px;
 }
@@ -112,4 +115,9 @@ html {
 .btn-submit:hover {
     cursor: pointer;
     opacity: .8;
+}
+
+.col-6 {
+    display: inline-block;
+    width: 44%;
 }

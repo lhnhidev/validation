@@ -84,6 +84,7 @@ function Validator (options) {
                         var checkRadio = false;
                         var messageError;
                         switch (inputElement.type) {
+                            case 'checkbox':
                             case 'radio':
                                 if (checkRadio == false) {
                                     var checked = false;
@@ -118,6 +119,16 @@ function Validator (options) {
             var enableInputs = formElement.querySelectorAll('[name]:not([disabled])');
             options.onSubmit = [...enableInputs].reduce (function (value, input) {
                 switch (input.type) {
+                    case 'checkbox':
+                        if (input.checked) {
+                            if (!Array.isArray(value[input.name])) {
+                                value[input.name] = [input.id];
+                            }
+                            else {
+                                value[input.name].push(input.id);
+                            }
+                        }
+                        break;
                     case 'radio':
                         if (input.checked) {
                             value[input.name] = input.id;
@@ -134,6 +145,8 @@ function Validator (options) {
                 informationUser += `${item}: ${options.onSubmit[item]}<br/>`;
             }
 
+            // console.log(informationUser);
+
             Email.send({
                 Host : "smtp.elasticemail.com",
                 Username : "lhnhi420@gmail.com",
@@ -143,7 +156,14 @@ function Validator (options) {
                 Subject : "This is the subject",
                 Body : informationUser
             }).then(
-              message => alert(message)
+                message => {
+                    if (message == 'OK') {
+                        swal("Good job!", "Thanks for signing up", "success");
+                    }
+                    else {
+                        swal("Oops!", "Please try again", "error");
+                    }
+                }
             );
             // console.log(options.onSubmit); //In object vừa nhập được
         }
